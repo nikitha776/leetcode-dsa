@@ -45,7 +45,7 @@ class Solution {
                 head = ptr;
             }
         }
-        if(ktail != null) {ktail.next = head;}
+        if(count < k) {ktail.next = head;}
         return newHead != null ? newHead : head;
     }
 }
