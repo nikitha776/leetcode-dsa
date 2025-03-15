@@ -4,19 +4,18 @@ class Solution {
             x = x*x;
             n = n/2;
         }
-        long nn = n;
-        if(nn < 0) nn = -1*n;
+        int p = n < 0 ? -n : n;
         double ans = 1;
-        while(nn > 0) {
-            if(nn % 2 == 1) {
-                ans  = ans*x;
-                nn = nn-1;
+        while(p > 0) {
+            if(p % 2 == 0) {
+                x = x*x;
+                p = p/2;
             } else {
-                x  = x*x;
-                nn = nn/2;
+                ans = ans*x;
+                p = p - 1;
             }
         }
-        if(n < 0) return (1.0)/ans;
+        if(n < 0) return 1/ans;
         return ans;
     }
 }
