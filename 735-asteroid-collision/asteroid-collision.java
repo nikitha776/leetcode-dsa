@@ -7,13 +7,11 @@ class Solution {
                 while(!st.isEmpty() && (st.peek() > 0) && (st.peek() < Math.abs(asteroids[i]))) {
                     st.pop();
                 }
-                if(st.isEmpty()) st.push(asteroids[i]);
-                else if(!st.isEmpty() && st.peek() > 0 && (st.peek() == Math.abs(asteroids[i]))) {
+                if(!st.isEmpty() && st.peek() > 0 && (st.peek() == Math.abs(asteroids[i]))) {
                     st.pop();
                     continue;
                 }
-                else if(st.peek() < 0) st.push(asteroids[i]);
-                else if(st.peek() > 0 && (st.peek() > Math.abs(asteroids[i]))) continue;
+                else if(st.isEmpty() || st.peek() < 0) st.push(asteroids[i]);
             }  else {
                 st.push(asteroids[i]);
             }
