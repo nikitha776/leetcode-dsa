@@ -30,7 +30,7 @@ class Solution {
         Stack<Integer> st = new Stack<>();
         int[] ngee = new int[n];
         for(int i = n-1;i >= 0;i--) {
-            while(!st.isEmpty() && nums[st.peek()] <= nums[i]) {
+            while(!st.isEmpty() && nums[st.peek()] < nums[i]) {
                 st.pop();
             }
             ngee[i] = st.isEmpty() ? n : st.peek();
@@ -43,7 +43,7 @@ class Solution {
         Stack<Integer> st = new Stack<>();
         int[] pge = new int[n];
         for(int i = 0;i < n;i++) {
-            while(!st.isEmpty() && nums[st.peek()] < nums[i]) {
+            while(!st.isEmpty() && nums[st.peek()] <= nums[i]) {
                 st.pop();
             }
             pge[i] = st.isEmpty() ? -1 : st.peek();
