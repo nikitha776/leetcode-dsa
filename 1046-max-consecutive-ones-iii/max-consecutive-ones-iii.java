@@ -6,6 +6,7 @@ class Solution {
         int n = nums.length;
         int len = 0;
 
+        // O(2*n)
         while(right < n) {
             if(nums[right] == 0) zeroes++;
 
@@ -14,12 +15,14 @@ class Solution {
                 left++;
             }
 
-            if(zeroes <= k) {
+            // if(zeroes <= k) {
                 len = Math.max(right-left+1,len);
-            }
+            // }
             right++;
         }
 
         return len;
+
+
     }
 }
