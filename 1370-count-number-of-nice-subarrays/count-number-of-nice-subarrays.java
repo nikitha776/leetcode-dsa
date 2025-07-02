@@ -7,9 +7,9 @@ class Solution {
         int count = 0;
 
         while(right < n) {
-            odds += (nums[right] % 2);
+            odds += (nums[right] & 1);
             while(odds > k) {
-                odds -= (nums[left] % 2);
+                odds -= (nums[left] & 1);
                 left++;
             }
             if(odds <= k) count += right-left+1;;
