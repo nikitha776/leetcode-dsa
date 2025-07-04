@@ -14,20 +14,33 @@
  * }
  */
 class Solution {
+    //O(n^2)
+    // public int height(TreeNode root) {
+    //     if(root == null) return 0;
+    //     int l = height(root.left);
+    //     int r = height(root.right);
+    //     return Math.max(l,r)+1;
+    // }
+    // public boolean isBalanced(TreeNode root) {
+    //     if(root == null) return true;
+    //     int l = height(root.left);
+    //     int r = height(root.right);
+    //     if(Math.abs(l-r) > 1) return false;
+    //     return isBalanced(root.left) && isBalanced(root.right);
+    // }
+
+    //O(n)
     public int height(TreeNode root) {
         if(root == null) return 0;
         int l = height(root.left);
+        if(l == -1) return -1;
         int r = height(root.right);
-        return Math.max(l,r)+1;
+        if(r == -1) return -1;
+
+        if(Math.abs(l-r) > 1) return -1;
+        return 1+Math.max(l,r);
     }
     public boolean isBalanced(TreeNode root) {
-        if(root == null) return true;
-        int l = height(root.left);
-        int r = height(root.right);
-        if(Math.abs(l-r) > 1) return false;
-        return isBalanced(root.left) && isBalanced(root.right);
+        return height(root) != -1;
     }
-    // public boolean isBalanced(TreeNode root) {
-        
-    // }
 }
