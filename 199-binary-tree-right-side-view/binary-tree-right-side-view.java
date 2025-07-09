@@ -13,49 +13,56 @@
  *     }
  * }
  */
- class Pair<u, v> {
-    public u first;
-    public v second;
+//  class Pair<u, v> {
+//     public u first;
+//     public v second;
 
-    public Pair(u first, v second) {
-        this.first = first;
-        this.second = second;
-    }
+//     public Pair(u first, v second) {
+//         this.first = first;
+//         this.second = second;
+//     }
 
-    public u getKey() {
-        return first;
-    }
+//     public u getKey() {
+//         return first;
+//     }
 
-    public v getValue() {
-        return second;
-    }
-}
+//     public v getValue() {
+//         return second;
+//     }
+// }
 
 class Solution {
+    public void inorder(TreeNode root,int lvl,Map<Integer,Integer> map) {
+        if(root == null) return;
+        inorder(root.left,lvl+1,map);
+        map.put(lvl,root.val);
+        inorder(root.right,lvl+1,map);
+    }
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> list = new ArrayList<>();
-        if(root == null) return list;
+        // if(root == null) return list;
         Map<Integer,Integer> map = new TreeMap<>();
-        Queue<Pair<TreeNode,Integer>> q = new LinkedList<>();
-        q.add(new Pair<>(root,0));
+        // Queue<Pair<TreeNode,Integer>> q = new LinkedList<>();
+        // q.add(new Pair<>(root,0));
 
-        while(!q.isEmpty()) {
-            int n = q.size();
-            for(int i = 0;i < n;i++) {
-                Pair<TreeNode,Integer> p = q.poll();
-                TreeNode temp = p.getKey();
-                int lvl = p.getValue();
-                int val = temp.val;
-                map.put(lvl,val);
-                if(temp.left != null) q.add(new Pair<>(temp.left,lvl+1));
-                if(temp.right != null) q.add(new Pair<>(temp.right,lvl+1));
-            }
-        }
-
+        // while(!q.isEmpty()) {
+        //     int n = q.size();
+        //     for(int i = 0;i < n;i++) {
+        //         Pair<TreeNode,Integer> p = q.poll();
+        //         TreeNode temp = p.getKey();
+        //         int lvl = p.getValue();
+        //         int val = temp.val;
+        //         map.put(lvl,val);
+        //         if(temp.left != null) q.add(new Pair<>(temp.left,lvl+1));
+        //         if(temp.right != null) q.add(new Pair<>(temp.right,lvl+1));
+        //     }
+        // }
+        inorder(root,0,map);
+        
         for(int val : map.values()) {
             list.add(val);
         }
-
+        
         return list;
     }
 }
