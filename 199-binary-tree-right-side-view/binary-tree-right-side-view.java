@@ -32,16 +32,16 @@
 // }
 
 class Solution {
-    public void inorder(TreeNode root,int lvl,Map<Integer,Integer> map) {
+    public void reversePreorder(TreeNode root,int lvl,List<Integer> list) {
         if(root == null) return;
-        inorder(root.left,lvl+1,map);
-        map.put(lvl,root.val);
-        inorder(root.right,lvl+1,map);
+        if(lvl == list.size()) list.add(root.val);
+        reversePreorder(root.right,lvl+1,list);
+        reversePreorder(root.left,lvl+1,list);
     }
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> list = new ArrayList<>();
         // if(root == null) return list;
-        Map<Integer,Integer> map = new TreeMap<>();
+        // Map<Integer,Integer> map = new TreeMap<>();
         // Queue<Pair<TreeNode,Integer>> q = new LinkedList<>();
         // q.add(new Pair<>(root,0));
 
@@ -57,11 +57,7 @@ class Solution {
         //         if(temp.right != null) q.add(new Pair<>(temp.right,lvl+1));
         //     }
         // }
-        inorder(root,0,map);
-        
-        for(int val : map.values()) {
-            list.add(val);
-        }
+        reversePreorder(root,0,list);
         
         return list;
     }
