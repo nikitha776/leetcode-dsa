@@ -22,6 +22,7 @@ class Solution {
                 res.add(new ArrayList<>(list));
                 list.remove(list.size()-1);
             }
+            return;
         }
         list.add(root.val);
         helper(root.left,targetSum-root.val,res,list);
