@@ -14,33 +14,30 @@
  * }
  */
 class Solution {
-    public TreeNode findMax(TreeNode root) {
-        if(root.right == null) return root;
-        return findMax(root.right);
-    }
-    public void swap(TreeNode a,TreeNode b) {
-        int temp = a.val;
-        a.val = b.val;
-        b.val = temp;
+    public TreeNode findRightSmall(TreeNode root) {
+        root = root.right;
+        while(root.left != null) {
+            root = root.left;
+        }
+        return root;
     }
     public TreeNode deleteNode(TreeNode root, int key) {
         if(root == null) return null;
-        if(key > root.val) root.right = deleteNode(root.right,key);
-        else if(key < root.val) root.left = deleteNode(root.left,key);
-        else {
-            if(root.left == null && root.right == null) {
-                return null;
-            }
-            else if(root.left == null) {
+        if(root.val < key) {
+            root.right  = deleteNode(root.right,key);
+        } else if(root.val > key) {
+            root.left = deleteNode(root.left,key);
+        } else {
+            if(root.left == null && root.right == null) return null;
+            if(root.left == null) {
                 return root.right;
             }
-            else if(root.right == null) {
+            if(root.right == null) {
                 return root.left;
-            } else {
-                TreeNode x = findMax(root.left);
-                swap(root,x);
-                root.left = deleteNode(root.left,key);
             }
+            TreeNode temp = findRightSmall(root);
+            root.val = temp.val;
+            root.right = deleteNode(root.right,temp.val);
         }
         return root;
     }
