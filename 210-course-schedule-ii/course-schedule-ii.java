@@ -16,19 +16,17 @@ class Solution {
         for(int i = 0;i < numCourses;i++) {
             if(indegree[i] == 0) q.add(i);
         }
+        int[] ans = new int[numCourses];
+        int idx = 0;
         while(!q.isEmpty()) {
             int curr = q.poll();
-            list.add(curr);
+            ans[idx++] = curr;
             for(int i : adj.get(curr)) {
                 indegree[i]--;
                 if(indegree[i] == 0) q.add(i);
             }
         }
-        if(list.size() != numCourses) return new int[0];
-        int[] ans = new int[numCourses];
-        for(int i = 0;i < numCourses;i++) {
-            ans[i] = list.get(i);
-        }
+        if(idx != numCourses) return new int[0];
         return ans;
     }
 }
