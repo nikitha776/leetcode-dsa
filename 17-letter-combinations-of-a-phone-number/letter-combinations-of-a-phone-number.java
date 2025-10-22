@@ -1,12 +1,12 @@
 class Solution {
-    public void helper(List<String> ans,String str,String digits,HashMap<Character,String> map,int idx) {
+    public void helper( HashMap<Character,String> map, String s, String digits, int idx, List<String> res) {
         if(idx == digits.length()) {
-            ans.add(str);
+            res.add(s);
             return;
         }
-        char ch = digits.charAt(idx);
-        for(int i = 0;i < map.get(ch).length();i++) {
-            helper(ans,str + map.get(ch).charAt(i),digits,map,idx+1);
+        char t = digits.charAt(idx);
+        for(char i : map.get(t).toCharArray()) {
+            helper(map,s+i,digits,idx+1,res);
         }
     }
     public List<String> letterCombinations(String digits) {
@@ -19,9 +19,8 @@ class Solution {
         map.put('7',"pqrs");
         map.put('8',"tuv");
         map.put('9',"wxyz");
-        List<String> ans = new ArrayList<>();
-        if(digits.isEmpty()) return ans;
-        helper(ans,"",digits,map,0);
-        return ans;
+        List<String> res = new ArrayList<>();
+        helper(map,"",digits,0,res);
+        return res;
     }
 }
