@@ -8,54 +8,53 @@
  * }
  */
 class Solution {
-    public void parentMap(TreeNode root,Map<TreeNode,TreeNode> map) {
+    public void parentMap(TreeNode root, Map<TreeNode,TreeNode> map) {
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
         while(!q.isEmpty()) {
-            TreeNode temp = q.poll();
-            if(temp.left != null) {
-                map.put(temp.left,temp);
-                q.add(temp.left);
+            TreeNode curr = q.poll();
+            if(curr.left != null) {
+                q.add(curr.left);
+                map.put(curr.left,curr);
             }
-            if(temp.right != null) {
-                map.put(temp.right,temp);
-                q.add(temp.right);
+            if(curr.right != null) {
+                q.add(curr.right);
+                map.put(curr.right,curr);
             }
         }
     }
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
         Map<TreeNode,TreeNode> map = new HashMap<>();
-        Map<TreeNode,Boolean> visited = new HashMap<>();
         parentMap(root,map);
+        Map<TreeNode,Boolean> vis = new HashMap<>();
         Queue<TreeNode> q = new LinkedList<>();
-        int dist = 0;
-        visited.put(target,true);
         q.add(target);
+        vis.put(target, true);
+        int dist = 0;
         while(!q.isEmpty()) {
             if(dist == k) break;
-            dist++;
             int n = q.size();
             for(int i = 0;i < n;i++) {
-                TreeNode temp = q.poll();
-                if(temp.left != null && visited.get(temp.left) == null) {
-                    q.add(temp.left);
-                    visited.put(temp.left,true);
+                TreeNode curr = q.poll();
+                if(curr.left != null && vis.get(curr.left) == null) {
+                    vis.put(curr.left,true);
+                    q.add(curr.left);
                 }
-                if(temp.right != null && visited.get(temp.right) == null) {
-                    q.add(temp.right);
-                    visited.put(temp.right,true);
+                if(curr.right != null && vis.get(curr.right) == null) {
+                    vis.put(curr.right,true);
+                    q.add(curr.right);
                 }
-                TreeNode parent = map.get(temp);
-                if(parent != null && visited.get(parent) == null) {
-                    q.add(parent);
-                    visited.put(parent,true);
+                if(map.get(curr) != null && vis.get(map.get(curr)) == null) {
+                    vis.put(map.get(curr),true);
+                    q.add(map.get(curr));
                 }
             }
+            dist++;
         }
-        List<Integer> list = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
         while(!q.isEmpty()) {
-            list.add(q.poll().val);
+            res.add(q.poll().val);
         }
-        return list;
+        return res;
     }
 }
