@@ -13,37 +13,38 @@
  *     }
  * }
  */
-
 class Pair {
     TreeNode node;
-    int num;
-    Pair(TreeNode node,int num) {
-        this.node = node;
-        this.num = num;
+    int idx;
+    Pair(TreeNode n,int i) {
+        node = n;
+        idx = i;
     }
 }
 class Solution {
     public int widthOfBinaryTree(TreeNode root) {
         Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(root,1));
         int maxWidth = 0;
-        if(root == null) return maxWidth;
-        q.add(new Pair(root,0));
-
         while(!q.isEmpty()) {
             int n = q.size();
-            int minIdx = q.peek().num;
-            int left = 0;
-            int right = 0;
+            int start = 0;
+            int last = n-1;
+            int min = q.peek().idx;
             for(int i = 0;i < n;i++) {
                 Pair p = q.poll();
-                TreeNode temp = p.node;
-                int idx = p.num-minIdx;
-                if(temp.left != null) q.add(new Pair(temp.left,(2*idx)+1));
-                if(temp.right != null) q.add(new Pair(temp.right,(2*idx)+2));
-                if(i == 0) left = p.num;
-                if(i == n-1) right = p.num;
+                TreeNode curr = p.node;
+                int idx = p.idx-min;
+                if(curr.left != null) {
+                    q.add(new Pair(curr.left,(idx-1)*2+1));
+                }
+                if(curr.right != null) {
+                    q.add(new Pair(curr.right,(idx-1)*2+2));
+                }
+                if(i == 0) start = idx;
+                if(i == n-1) last = idx; 
             }
-            maxWidth = Math.max(maxWidth,right-left+1);
+            maxWidth = Math.max(maxWidth,last-start+1);
         }
         return maxWidth;
     }
