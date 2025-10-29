@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-    public void inorder(TreeNode root,int k,int[] counter,int[] res) {
+    public void inorder(TreeNode root, int k, int[] counter, int[] res) {
         if(root == null) return;
         inorder(root.left,k,counter,res);
         counter[0]++;
