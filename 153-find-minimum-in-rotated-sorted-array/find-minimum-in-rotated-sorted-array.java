@@ -5,6 +5,10 @@ class Solution {
         int min = Integer.MAX_VALUE;
         while(s <= e) {
             int mid = (s+e)/2;
+            if(nums[s] <= nums[e]) {
+                min = Math.min(nums[s],min);
+                break;
+            }
             if(nums[s] <= nums[mid]) {
                 min = Math.min(nums[s],min);
                 s = mid+1;
