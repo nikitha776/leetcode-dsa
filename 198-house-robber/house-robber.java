@@ -9,16 +9,26 @@ class Solution {
     // }
     public int rob(int[] nums) {
         int n = nums.length;
-        int[] dp = new int[n];
-        Arrays.fill(dp,-1);
-        dp[0] = nums[0];
+        // int[] dp = new int[n];
+        // Arrays.fill(dp,-1);
+        // dp[0] = nums[0];
         // return helper(nums,n-1,dp);
+        // for(int i = 1;i < n;i++) {
+        //     int take = nums[i];
+        //     if(i > 1) take += dp[i-2];
+        //     int nottake = dp[i-1];
+        //     dp[i] = Math.max(take,nottake);
+        // }
+        // return dp[n-1];
+        int prev2 = 0;
+        int prev1 = nums[0];
         for(int i = 1;i < n;i++) {
-            int take = nums[i];
-            if(i > 1) take += dp[i-2];
-            int nottake = dp[i-1];
-            dp[i] = Math.max(take,nottake);
+            int pick = nums[i] + prev2;
+            int notpick = prev1;
+            int res = Math.max(pick,notpick);
+            prev2 = prev1;
+            prev1 = res;
         }
-        return dp[n-1];
+        return prev1;
     }
 }
