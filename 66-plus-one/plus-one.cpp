@@ -11,12 +11,11 @@ public:
             else{
                 digits[i] = digits[i] + carry;
                 carry = 0;
-                break;
+                return digits;
             }
         }
-        if(carry == 1){
             digits.insert(digits.begin(), 1); 
-        }
+        
         return digits;
     }
 };
