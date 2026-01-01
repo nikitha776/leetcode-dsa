@@ -11,6 +11,14 @@ class Solution {
         int n = nums.length;
         int[] dp = new int[n];
         Arrays.fill(dp,-1);
-        return helper(nums,n-1,dp);
+        dp[0] = nums[0];
+        // return helper(nums,n-1,dp);
+        for(int i = 1;i < n;i++) {
+            int take = nums[i];
+            if(i > 1) take += dp[i-2];
+            int nottake = dp[i-1];
+            dp[i] = Math.max(take,nottake);
+        }
+        return dp[n-1];
     }
 }
