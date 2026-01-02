@@ -14,6 +14,18 @@ class Solution {
         for(int i = 0;i < m;i++) {
             Arrays.fill(dp[i],-1);
         }
-        return helper(grid,dp,m-1,n-1);
+        for(int i = 0;i < m;i++) {
+            for(int j = 0;j < n;j++) {
+                if(i == 0 && j == 0) {
+                    dp[i][j] = grid[0][0];
+                    continue;
+                }
+                int up = (i > 0) ? grid[i][j] + dp[i-1][j] : (int) 1e9;
+                int left = (j > 0) ? grid[i][j] + dp[i][j-1] : (int) 1e9;
+                dp[i][j] = Math.min(up,left);
+            }
+        }
+        return dp[m-1][n-1];
+        // return helper(grid,dp,m-1,n-1);
     }
 }
