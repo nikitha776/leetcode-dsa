@@ -8,10 +8,10 @@ class Solution {
         return dp[i][j] = up + down;
     }
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-        if(obstacleGrid[0][0] == 1) return 0;
         int m = obstacleGrid.length;
         int n = obstacleGrid[0].length;
-        if(obstacleGrid[m-1][n-1] == 1) return 0;
+        if(obstacleGrid[0][0] == 1) return 0;
+        // if(obstacleGrid[m-1][n-1] == 1) return 0;
         int[][] dp = new int[m][n];
         for(int i = 0;i < m;i++) {
             Arrays.fill(dp[i],-1);
