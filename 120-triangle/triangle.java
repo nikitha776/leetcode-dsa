@@ -9,21 +9,35 @@ class Solution {
     public int minimumTotal(List<List<Integer>> triangle) {
         int n = triangle.size();
         int m = triangle.get(n-1).size();
-        int[][] dp = new int[n][m];
-        for(int i = 0;i < n;i++) {
-            Arrays.fill(dp[i],-1);
-        }
+        // int[][] dp = new int[n][m];
+        // for(int i = 0;i < n;i++) {
+        //     Arrays.fill(dp[i],-1);
+        // }
+        // for(int j = 0;j < m;j++) {
+        //     dp[n-1][j] = triangle.get(n-1).get(j);
+        // }
+        // for(int i = n-2;i >= 0;i--) {
+        //     for(int j = triangle.get(i).size()-1;j >= 0 ;j--) {
+        //         int sum1 = triangle.get(i).get(j) + dp[i+1][j];
+        //         int sum2 = triangle.get(i).get(j) + dp[i+1][j+1];
+        //         dp[i][j] = Math.min(sum1,sum2);
+        //     }
+        // }
+        // return dp[0][0];
+        // return helper(triangle,dp,0,0,n);
+        int[] next = new int[m];
         for(int j = 0;j < m;j++) {
-            dp[n-1][j] = triangle.get(n-1).get(j);
+            next[j] = triangle.get(n-1).get(j);
         }
         for(int i = n-2;i >= 0;i--) {
+            int[] temp = new int[m];
             for(int j = triangle.get(i).size()-1;j >= 0 ;j--) {
-                int sum1 = triangle.get(i).get(j) + dp[i+1][j];
-                int sum2 = triangle.get(i).get(j) + dp[i+1][j+1];
-                dp[i][j] = Math.min(sum1,sum2);
+                int sum1 = triangle.get(i).get(j) + next[j];
+                int sum2 = triangle.get(i).get(j) + next[j+1];
+                temp[j] = Math.min(sum1,sum2);
             }
+            next = temp;
         }
-        return dp[0][0];
-        // return helper(triangle,dp,0,0,n);
+        return next[0];
     }
 }
