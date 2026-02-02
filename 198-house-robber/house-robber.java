@@ -12,13 +12,23 @@ class Solution {
         int[] dp = new int[n];
         // Arrays.fill(dp,-1);
         // return helper(nums,n-1,dp);
-        dp[0] = nums[0];
+        // dp[0] = nums[0];
+        // for(int i = 1;i < n;i++) {
+        //     int pick = nums[i];
+        //     if(i-2 >= 0) pick = nums[i] + dp[i-2];
+        //     int notpick = dp[i-1];
+        //     dp[i] = Math.max(pick,notpick);
+        // }
+        // return dp[n-1];
+        int prev1 = nums[0];
+        int prev2 = 0;
         for(int i = 1;i < n;i++) {
-            int pick = nums[i];
-            if(i-2 >= 0) pick = nums[i] + dp[i-2];
-            int notpick = dp[i-1];
-            dp[i] = Math.max(pick,notpick);
+            int pick = nums[i] + prev2;
+            int notpick = prev1;
+            int res = Math.max(pick,notpick);
+            prev2 = prev1;
+            prev1 = res;
         }
-        return dp[n-1];
+        return prev1;
     }
 }
