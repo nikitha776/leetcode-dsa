@@ -1,7 +1,6 @@
 class Solution {
     public int helper(int[] coins, int amount, int idx, int[][] dp) {
         if(idx == 0) return amount % coins[idx] == 0 ? amount / coins[idx] : (int)1e9;
-        if(amount == 0) return 0;
         if(dp[idx][amount] != -1) return dp[idx][amount];
         int pick = Integer.MAX_VALUE;
         if(amount >= coins[idx]) pick = 1 + helper(coins,amount-coins[idx],idx,dp);
@@ -16,5 +15,6 @@ class Solution {
         }
         int ans = helper(coins,amount,n-1,dp);
         return ans >= (int)1e9 ? -1 : ans;
+
     }
 }
